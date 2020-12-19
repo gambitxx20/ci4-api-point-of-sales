@@ -4,7 +4,7 @@ use App\Models\UsersModel;
 use CodeIgniter\Config\Config;
 use CodeIgniter\Controller;
 
-class Home extends BaseController
+class Auth extends BaseController
 {	
 	
 	public function index()
@@ -14,7 +14,11 @@ class Home extends BaseController
 	    $std = new UsersModel();
 	    $users = $std->findAll();
 		
-		return view('welcome_message');
+		return view('Login');
+	}
+
+	public function logout(){
+		$this->session->destroy();
 	}
 
 	//--------------------------------------------------------------------
