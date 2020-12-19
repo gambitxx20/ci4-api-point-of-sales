@@ -59,7 +59,7 @@ class Authenticate extends ResourceController
         }else{
             $response = [
                 'status'   => 401,
-                'error'    => null,
+                'error'    => 1,
                 'data' => $data,
                 'messages' => 'Login Failed Incorrect Username / Password!',
             ];

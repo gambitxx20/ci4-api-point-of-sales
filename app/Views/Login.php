@@ -57,10 +57,12 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <input type="submit" name="submit" value="Login" id="submit" class="btn btn-primary btn-user btn-block">                                
+                                        <input type="submit" name="submit" value="Login" id="submit" class="btn btn-primary btn-user btn-block">
+                                                                      
                                     </form>
                                     <hr>
                                     <div class="text-center">
+                                        <p class="text-danger small" id="error"></p>  
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                 </div>
@@ -98,7 +100,11 @@
                    n = JSON.parse(a);
 
                    console.log(n.messages);
-                   window.location.href = '<?php echo base_url()?>/home';
+                   if (n.error != 1) {
+                    window.location.href = '<?php echo base_url()?>/home';
+                   }else{
+                    $('#error').text(n.messages);
+                   }
 
                },
            });
