@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Gambit Point of Sales System</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?php echo base_url('public')?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-light">
 
     <div class="container">
 
@@ -40,7 +40,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" id="loginForm">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="InputUsername" aria-describedby="usernameHelp"
@@ -57,9 +57,7 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </a>
+                                        <input type="submit" name="submit" value="Login" id="submit" class="btn btn-primary btn-user btn-block">                                
                                     </form>
                                     <hr>
                                     <div class="text-center">
@@ -76,12 +74,38 @@
         </div>
 
     </div>
-
-    <!-- Bootstrap core JavaScript-->
     <script src="<?php echo base_url('public')?>/vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url('public')?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo base_url('public')?>/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="<?php echo base_url('public')?>/js/sb-admin-2.min.js"></script>
+    <script type="text/javascript">
+        $( "#loginForm" ).submit(function( event ) {
+           event.preventDefault();
+           var data = {
+             username : $('#InputUsername').val(),
+             password : $('#InputPassword').val(),
+           }
+
+           $.ajax({
+               url: '<?php echo base_url()?>/api/authenticate',
+               type: 'post',
+               dataType: 'json',
+               data: JSON.stringify(data),
+               contentType: 'application/json',
+               success: function (data) {
+                     
+                   var a = JSON.stringify(data),
+                   n = JSON.parse(a);
+
+                   console.log(n.messages);
+                   window.location.href = '<?php echo base_url()?>/home';
+
+               },
+           });
+
+         });    
+    </script>
+    <!-- Bootstrap core JavaScript-->
 
 </body>
 

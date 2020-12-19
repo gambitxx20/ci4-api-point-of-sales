@@ -2,14 +2,14 @@
 
 use CodeIgniter\Model;
 
-class UsersModel extends Model
+class AuthModel extends Model
 {
    protected $DBGroup = 'default';
    protected $table = 'users';
    protected $primaryKey = 'id';
    protected $returnType = 'object';
    protected $useTimestamps = true;
-   protected $allowedFields = ['username','password','name','role_id','last_login'];
+   protected $allowedFields = ['username','password','name','role_id','last_login','updated'];
    protected $createdField = 'created';
-   protected $updatedField = 'updated';
+   protected $updatedField = 'last_login';
 }

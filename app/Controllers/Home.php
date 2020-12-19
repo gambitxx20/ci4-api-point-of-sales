@@ -11,10 +11,14 @@ class Home extends BaseController
 	{
 		
 	    $message = $this->session->getFlashdata('message');
-	    $std = new UsersModel();
-	    $users = $std->findAll();
-		
-		return view('welcome_message');
+	    
+		$data = array(
+			'title' => 'Home',
+			'content' => 'Home',
+			'message' => $message,
+		);	
+
+		return view('Layouts',$data);
 	}
 
 	//--------------------------------------------------------------------
