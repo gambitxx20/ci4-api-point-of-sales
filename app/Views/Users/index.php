@@ -12,17 +12,29 @@
 
         <!-- Users Table -->
         <div class="col-xl-12 col-md-12 mb-4">
-            <div class="card shadow h-100 py-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Users Tables</h6>
+                </div>
+                <div class="card-body py-3">
+                    <a href="<?php echo base_url()?>/users/create" class="btn btn-success btn-sm">
+                        <i class="fas fa-user-plus mr-1"></i>
+                        Create User
+                    </a>
+                </div>
                 <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Earnings (Monthly)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered dt-responsive" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Last Login</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -30,3 +42,31 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+        $('#dataTable').DataTable( {
+            "ajax": {
+                type : "GET",
+                url : "<?php echo base_url()?>/api/users",
+                dataSrc: function ( json ) {
+                    //Make your callback here.
+                    console.log(json.data.length);
+                    return json.data;
+                }       
+            },columns: [
+                { data: "name" },
+                { data: "username" },
+                { data: "role_name" },
+                { data: "last_login" },  
+                { render: function ( data, type, row ) { // Tampilkan kolom aksi
+                        var html  = "<a href='<?php echo base_url("users/edit")?>/"+row.id+"'>Edit</a> | ";
+                        html += "<a href=''>Delete</a>";
+                        return html
+                    }
+                },
+            ]
+        });
+    });
+</script>
