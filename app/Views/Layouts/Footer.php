@@ -3,7 +3,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Gambit POS @alityunianto 2020</span>
                     </div>
                 </div>
             </footer>
@@ -30,8 +30,6 @@
     <!-- Custom scripts for all pages-->
     <script src="<?php echo base_url()?>/public/js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="<?php echo base_url()?>/public/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Data Tables Plugins -->
     <script src="<?php echo base_url()?>/public/vendor/datatables/jquery.dataTables.min.js"></script>

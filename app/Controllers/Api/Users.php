@@ -3,6 +3,7 @@
 use CodeIgniter\API\ResponseTrait; 
 use CodeIgniter\RESTful\ResourceController;
 use App\Models\UsersModel;
+use CodeIgniter\Config\Config;
 
 use CodeIgniter\I18n\Time;
 date_default_timezone_set('Asia/Jakarta');
@@ -11,6 +12,9 @@ class Users extends ResourceController
 {
     use ResponseTrait;
     protected $format = 'json';
+    public function __construct(){
+        $this->session = \Config\Services::session();
+    }
     // get all product
     public function index()
     {
@@ -42,7 +46,18 @@ class Users extends ResourceController
  
     // create a product
     public function create()
-    {
+    {   
+        if($this->session->has('logged_in') != 1){
+            $response = [
+                'status'   => 403,
+                'error'    => null,
+                'messages' => [
+                    'success' => 'Your Session Has Expired, Please Login Before Continue'
+                ]
+            ];
+            return $this->respondCreated($response, $response['status']); 
+        }
+
         $model = new UsersModel();
 
         $json =  $this->request->getJSON();
@@ -57,7 +72,7 @@ class Users extends ResourceController
         if ($dataName != null || $dataName != '') {
         	$response = [
         	    'status'   => 409,
-        	    'error'    => null,
+        	    'error'    => 'error_duplicate',
         	    'messages' => [
         	        'success' => 'Duplicate Found for Username '.$data['username'],
         	    ]
@@ -69,7 +84,7 @@ class Users extends ResourceController
         	    'status'   => 201,
         	    'error'    => null,
         	    'messages' => [
-        	        'success' => 'Data Saved'
+        	        'success' => 'User Created'
         	    ]
         	];	
         }
@@ -114,6 +129,20 @@ class Users extends ResourceController
     public function delete($id = null)
     {
         $model = new UsersModel();
+        if($this->session->has('logged_in') != 1){
+            $response = [
+                'status'   => 403,
+                'error'    => null,
+                'messages' => [
+                    'success' => 'Your Session Has Expired, Please Login Before Continue'
+                ]
+            ];
+            return $this->respondCreated($response, $response['status']); 
+        }else{
+            if (condition) {
+                # code...
+            }
+        }
         $data = $model->find($id);
         if($data){
             $model->delete($id);

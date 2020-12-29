@@ -9,7 +9,9 @@ class Home extends BaseController
 	
 	public function index()
 	{
-		
+		if($this->session->has('logged_in') != 1){
+			return redirect()->to(base_url('auth')); 
+		}
 	    $message = $this->session->getFlashdata('message');
 	    
 		$data = array(

@@ -9,7 +9,10 @@ class Users extends BaseController
 {	
 	
 	public function index()
-	{
+	{	
+		if($this->session->has('logged_in') != 1){
+			return redirect()->to(base_url('auth')); 
+		}
 		$message = $this->session->getFlashdata('message');
 	    
 		$data = array(
@@ -21,6 +24,9 @@ class Users extends BaseController
 		return view('Layouts',$data);
 	}
 	public function create(){
+		if($this->session->has('logged_in') != 1){
+			return redirect()->to(base_url('auth')); 
+		}
 		$message = $this->session->getFlashdata('message');
 	    $rolesModel = new RolesModel;
 	    $roles = $rolesModel->findAll();
@@ -32,6 +38,15 @@ class Users extends BaseController
 		);	
 
 		return view('Layouts',$data);
+	}
+
+	public function edit($id = null){
+		if($this->session->has('logged_in') != 1){
+			return redirect()->to(base_url('auth')); 
+		}
+		$UsersModel = new UsersModel;
+		$test = $UsersModel->find($id);
+		print_r($test);
 	}
 
 	//--------------------------------------------------------------------

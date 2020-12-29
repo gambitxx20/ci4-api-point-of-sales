@@ -12,4 +12,5 @@ class UsersModel extends Model
    protected $allowedFields = ['username','password','name','role_id','last_login'];
    protected $createdField = 'created';
    protected $updatedField = 'updated';
+
 }

@@ -12,19 +12,19 @@
                     <form id="createUserForm">
                         <div class="form-group row">
                             <label class="col-md-2 mb-0 p-2">Name</label>
-                            <input type="text" id="name" name="name" class="form-control col-md-10" placeholder="Enter Name..">
+                            <input type="text" id="name" name="name" class="form-control col-md-10" placeholder="Enter Name.." required>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 mb-0 p-2">Username</label>
-                            <input type="text" id="username" name="username" class="form-control col-md-10" placeholder="Enter Userame..">
+                            <input type="text" id="username" name="username" class="form-control col-md-10" placeholder="Enter Userame.." required>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 mb-0 p-2">Password</label>
-                            <input type="password" id="password" name="password" class="form-control col-md-10" placeholder="Enter Password..">
+                            <input type="password" id="password" name="password" class="form-control col-md-10" placeholder="Enter Password.." required>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 mb-0 p-2">Role</label>
-                            <select id="role" class="form-control col-md-10">
+                            <select id="role" class="form-control col-md-10" required>
                                 <?php  foreach($roles as $role){ ?>
                                     <option value="<?php echo $role->id?>"><?php echo $role->name?></option>
                                 <?php } ?>
@@ -63,10 +63,29 @@
            contentType: 'application/json',
            success: function (data) {
                  
-               var a = JSON.stringify(data),
-               n = JSON.parse(a);
+              var a = JSON.stringify(data),
+              n = JSON.parse(a);
 
-               console.log(n.messages);
+              if (n.error == 'null' || n.error == null) {
+                Swal.fire({
+                  title: 'Success!',
+                  text: n.messages.success,
+                  icon: 'success',
+                  confirmButtonText: 'OK'
+                });
+
+                setTimeout(function(){
+                 window.location.href = '<?php echo base_url()?>/users'; //Will take you to Events. 
+                }, 1600);
+              }else{
+                Swal.fire({
+                  title: 'Error!',
+                  text: n.messages.success,
+                  icon: 'error',
+                  confirmButtonText: 'OK'
+                });
+
+              }
                
            },
        });

@@ -12,4 +12,6 @@ class AuthModel extends Model
    protected $allowedFields = ['username','password','name','role_id','last_login','updated'];
    protected $createdField = 'created';
    protected $updatedField = 'last_login';
+
+   
 }
