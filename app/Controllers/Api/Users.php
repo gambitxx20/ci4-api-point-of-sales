@@ -102,17 +102,13 @@ class Users extends ResourceController
         $json = $this->request->getJSON();
        // print_r($json);
         if($json){
-            $data = [
+            $data = array(
                 'name' => $json->name,
-                'password' => md5($json->password)
-            ];
-        }else{
-            $input = $this->request->getRawInput();
-            $data = [
-                'name' => $input['name'],
-                'password' => md5($input['password'])
-            ];
+                'username' => $json->username,
+                'role_id' => $json->role_id,
+            );
         }
+
         // Insert to Database
         $model->update($id, $data);
         $response = [

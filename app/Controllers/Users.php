@@ -41,12 +41,29 @@ class Users extends BaseController
 	}
 
 	public function edit($id = null){
+
 		if($this->session->has('logged_in') != 1){
 			return redirect()->to(base_url('auth')); 
 		}
+
 		$UsersModel = new UsersModel;
-		$test = $UsersModel->find($id);
-		print_r($test);
+		$user = $UsersModel->find($id);
+		unset($user->password);
+		
+		$message = $this->session->getFlashdata('message');
+	    $rolesModel = new RolesModel;
+	    $roles = $rolesModel->findAll();
+	    $user->role = $rolesModel->find($user->role_id);
+		$data = array(
+			'title' => 'Users',
+			'content' => 'Users/edit',
+			'message' => $message,
+			'roles' => $roles,
+			'user' => $user,
+
+		);	
+
+		return view('Layouts',$data);
 	}
 
 	//--------------------------------------------------------------------
